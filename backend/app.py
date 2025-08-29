@@ -15,9 +15,9 @@ app = Flask(__name__)
 CORS(app) # Enable Cross-Origin Resource Sharing
 
 # --- Configuration ---
-MODEL_FILE = 'rf.pkl'
-SCALER_FILE = 'scaler.pkl'
-CONFIDENCE_THRESHOLD = 50.0
+MODEL_FILE = 'rf (1).pkl'
+SCALER_FILE = 'scaler (1).pkl'
+CONFIDENCE_THRESHOLD = 30.0
 
 # --- CRITICAL: Feature Extraction Functions (MUST BE IDENTICAL TO TRAINING) ---
 
