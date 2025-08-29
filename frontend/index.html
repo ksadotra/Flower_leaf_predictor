@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF--8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Info</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Leaf Disease Classification Model</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Model Info</a></li>
+                <li><a href="predict.html">Predict</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="model-overview">
+            <h2>Model Overview</h2>
+            <p>
+                This model is designed to classify leaf diseases from an image. It uses a sophisticated feature extraction pipeline that analyzes color, texture, and shape properties of the leaf. The core of the model is a Random Forest classifier trained on a pre-processed dataset.
+            </p>
+        </section>
+
+        <section id="model-details">
+            <h2>Technical Details</h2>
+            <ul>
+                <li><strong>Algorithm:</strong> Random Forest Classifier</li>
+                <li><strong>Feature Extraction:</strong> Includes color statistics (mean, std dev in RGB/HSV), texture analysis (GLCM properties like contrast, energy), and shape metrics (aspect ratio, circularity, Hu Moments).</li>
+                <li><strong>Segmentation:</strong> A tiered approach first attempts segmentation by color, then uses GrabCut for more complex cases, and finally falls back to the full image if segmentation fails.</li>
+            </ul>
+        </section>
+
+        <section id="how-to-use">
+            <h2>How to Use</h2>
+            <p>
+                Navigate to the <strong>Predict</strong> page to upload a photo of a leaf and receive a classification and confidence score from the model.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Leaf Classifier Project</p>
+    </footer>
+</body>
+</html>
