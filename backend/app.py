@@ -12,7 +12,8 @@ import base64
 
 # --- Initialize Flask App ---
 app = Flask(__name__)
-CORS(app) # Enable Cross-Origin Resource Sharing
+# Allow requests specifically from your GitHub Pages site
+CORS(app, resources={r"/predict": {"origins": "https://ksadotra.github.io"}}) # Enable Cross-Origin Resource Sharing
 
 # --- Configuration ---
 MODEL_FILE = 'rf (1).pkl'
