@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const segmentedImage = document.getElementById('segmentedImage');
 
     // THIS IS THE ONLY LINE YOU WILL EDIT LATER
-    const BACKEND_URL = 'YOUR_RENDER_BACKEND_URL_GOES_HERE/predict';
+    const BACKEND_URL = 'https://flower-leaf-predictor-mjuj.onrender.com';
 
     if (imageUpload) {
         imageUpload.addEventListener('change', (event) => {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('image', file);
 
             try {
-                if (BACKEND_URL.includes('YOUR_RENDER_BACKEND_URL_GOES_HERE')) {
+                if (BACKEND_URL.includes('https://flower-leaf-predictor-mjuj.onrender.com')) {
                     alert('Please update the BACKEND_URL in script.js with your live server URL first!');
                     resultText.textContent = 'Backend URL not configured.';
                     return;
