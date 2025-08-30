@@ -21,7 +21,7 @@ SCALER_FILE = 'scaler (1).pkl'
 CONFIDENCE_THRESHOLD = 30.0
 
 # --- CRITICAL: Feature Extraction Functions (MUST BE IDENTICAL TO TRAINING) ---
-
+# NOTE: These complex feature extraction functions remain unchanged as they are essential for the model.
 def extract_features_no_segmentation(image):
     all_features = {}
     h, w, _ = image.shape
@@ -59,7 +59,7 @@ def extract_leaf_features_tiered(image_data):
         original_image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
     except Exception as e:
         print(f"Error loading image data: {e}")
-        return None, None
+        return None
 
     final_mask = None
     image_to_process = original_image
@@ -119,7 +119,7 @@ def extract_leaf_features_tiered(image_data):
 
     if final_mask is None or cv2.countNonZero(final_mask) < 500:
         features = extract_features_no_segmentation(original_image)
-        return features, original_image
+        return features
 
     contours, _ = cv2.findContours(final_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     main_contour = max(contours, key=cv2.contourArea)
@@ -168,47 +168,50 @@ def extract_leaf_features_tiered(image_data):
         cy = float(moments['m01']/moments['m00'])/h
     all_features.update({'centroid_x':cx, 'centroid_y':cy})
 
-    return all_features, segmented_image
+    return all_features
 
-# --- Prediction Function (Adapted for Flask) ---
+# --- MODIFIED Prediction Function ---
 def predict_leaf_disease(image_data):
     try:
         model = joblib.load(MODEL_FILE)
         scaler = joblib.load(SCALER_FILE)
     except Exception as e:
-        return {"error": f"Failed to load model files: {e}"}, None
+        return {"error": f"Failed to load model files: {e}"}
 
-    features, segmented_image = extract_leaf_features_tiered(image_data)
+    # MODIFICATION: The function no longer expects a segmented image to be returned.
+    features = extract_leaf_features_tiered(image_data)
     if features is None:
-        return {"error": "Could not extract features from the image."}, None
+        return {"error": "Could not extract features from the image."}
 
     feature_df = pd.DataFrame([features])
     try:
         feature_df = feature_df[scaler.get_feature_names_out()]
     except Exception as e:
-        return {"error": f"Feature mismatch. Ensure the training features match prediction features. Details: {e}"}, None
+        return {"error": f"Feature mismatch. Ensure the training features match prediction features. Details: {e}"}
 
     features_scaled = scaler.transform(feature_df)
     prediction = model.predict(features_scaled)
     probability = model.predict_proba(features_scaled)
+    
     predicted_class = prediction[0]
     confidence_score = np.max(probability) * 100
 
+    # MODIFICATION: Implement the confidence threshold logic.
+    final_prediction_class = ""
+    if confidence_score < CONFIDENCE_THRESHOLD:
+        final_prediction_class = "Unknown Leaf"
+    else:
+        final_prediction_class = predicted_class.upper()
+
+    # MODIFICATION: Create the result dictionary without confidence or segmented image.
     result = {
-        "prediction": predicted_class.upper(),
-        "confidence": round(confidence_score, 2),
-        "warning": "Low Confidence" if confidence_score < CONFIDENCE_THRESHOLD else None
+        "prediction": final_prediction_class
     }
+    
+    # MODIFICATION: The function now only returns the result dictionary.
+    return result
 
-    segmented_image_base64 = None
-    if segmented_image is not None:
-        is_success, buffer = cv2.imencode(".png", segmented_image)
-        if is_success:
-            segmented_image_base64 = base64.b64encode(buffer).decode("utf-8")
-            
-    return result, segmented_image_base64
-
-# --- Flask Routes ---
+# --- MODIFIED Flask Route ---
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'image' not in request.files:
@@ -219,15 +222,16 @@ def predict():
 
     try:
         image_data = file.read()
-        prediction_result, segmented_image_base64 = predict_leaf_disease(image_data)
+        
+        # MODIFICATION: The function call now expects only one return value.
+        prediction_result = predict_leaf_disease(image_data)
+        
         if "error" in prediction_result:
             return jsonify(prediction_result), 500
         
-        response_data = prediction_result
-        if segmented_image_base64:
-            response_data["segmented_image"] = segmented_image_base64
-
-        return jsonify(response_data)
+        # MODIFICATION: Directly return the result. No need to add segmented image.
+        return jsonify(prediction_result)
+        
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {e}"}), 500
 
