@@ -3,42 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML Model Predict</title>
+    <title>Predict Disease - FloraIntel</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Leaf Disease Classification Model</h1>
         <nav>
+            <a href="index.html" class="logo">FloraIntel</a>
             <ul>
                 <li><a href="index.html">Model Info</a></li>
-                <li><a href="predict.html">Predict</a></li>
+                <li><a href="predict.html" class="active">Predict</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="prediction-upload">
-            <h2>Upload an Image for Prediction</h2>
-            <input type="file" id="imageUpload" accept="image/*">
-            <button id="predictButton">Predict</button>
-            <div id="imagePreviewContainer">
-                <h3>Original Image:</h3>
-                <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 300px; display: none;">
-            </div>
-            <div id="predictionResult">
-                <h3>Prediction:</h3>
-                <p id="resultText">Upload an image and click 'Predict'.</p>
-            </div>
-            <div id="segmentedImageContainer" style="display: none;">
-                <h3>Segmented Image:</h3>
-                <img id="segmentedImage" src="#" alt="Segmented Image" style="max-width: 300px; display: none;">
+        <section id="prediction-section">
+            <div class="container">
+                <div class="prediction-card">
+                    <h2>Upload an Image for Prediction</h2>
+                    <p>Select a clear image of a single leaf to get the most accurate result.</p>
+                    
+                    <div class="upload-area">
+                        <input type="file" id="imageUpload" accept="image/*" hidden/>
+                        <label for="imageUpload" class="upload-label">
+                            <span>Click to Upload Image</span>
+                        </label>
+                    </div>
+
+                    <button id="predictButton" class="cta-button">Predict</button>
+
+                    <div id="results-container">
+                        <div id="imagePreviewContainer" class="result-box" style="display: none;">
+                            <h3>Original Image</h3>
+                            <img id="imagePreview" src="#" alt="Image Preview">
+                        </div>
+                        <div id="predictionResult" class="result-box" style="display: none;">
+                            <h3>Prediction</h3>
+                            <p id="resultText"></p>
+                        </div>
+                         <div id="segmentedImageContainer" class="result-box" style="display: none;">
+                            <h3>Segmented Image</h3>
+                            <img id="segmentedImage" src="#" alt="Segmented Image">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Leaf Classifier Project</p>
+        <p>&copy; 2025 FloraIntel Project</p>
     </footer>
 
     <script src="script.js"></script>
