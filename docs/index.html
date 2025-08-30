@@ -1,50 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML Model Info</title>
+    <title>FloraIntel - AI Leaf Disease Classification</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Leaf Disease Classification Model</h1>
         <nav>
+            <a href="index.html" class="logo">FloraIntel</a>
             <ul>
-                <li><a href="index.html">Model Info</a></li>
+                <li><a href="index.html" class="active">Model Info</a></li>
                 <li><a href="predict.html">Predict</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="model-overview">
-            <h2>Model Overview</h2>
-            <p>
-                This model is designed to classify leaf diseases from an image. It uses a sophisticated feature extraction pipeline that analyzes color, texture, and shape properties of the leaf. The core of the model is a Random Forest classifier trained on a pre-processed dataset.
-            </p>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Flower Leaf Classification Model</h1>
+                <p class="subtitle">Leveraging Artificial Intelligence to identify Flower leafs with high accuracy.</p>
+                <a href="predict.html" class="cta-button">Start Prediction</a>
+            </div>
         </section>
 
-        <section id="model-details">
-            <h2>Technical Details</h2>
-            <ul>
-                <li><strong>Algorithm:</strong> Random Forest Classifier</li>
-                <li><strong>Feature Extraction:</strong> Includes color statistics (mean, std dev in RGB/HSV), texture analysis (GLCM properties like contrast, energy), and shape metrics (aspect ratio, circularity, Hu Moments).</li>
-                <li><strong>Segmentation:</strong> A tiered approach first attempts segmentation by color, then uses GrabCut for more complex cases, and finally falls back to the full image if segmentation fails.</li>
-            </ul>
+        <section id="model-overview" class="info-section">
+            <div class="container">
+                <h2>Model Overview</h2>
+                <p>
+                    This model is designed to classify Flower leafs from an image. It uses a sophisticated feature extraction pipeline that analyzes color, texture, and shape properties of the leaf. The core of the model is a Random Forest classifier trained on a pre-processed dataset.
+                </p>
+            </div>
         </section>
 
-        <section id="how-to-use">
-            <h2>How to Use</h2>
-            <p>
-                Navigate to the <strong>Predict</strong> page to upload a photo of a leaf and receive a classification and confidence score from the model.
-            </p>
+        <!-- NEW SECTION: SUPPORTED CLASSES -->
+        <section id="detection-classes" class="info-section-alt">
+            <div class="container">
+                <h2>Supported Detection Classes</h2>
+                <p>The model is currently trained to identify the following Flower leafs.</p>
+                <div class="classes-grid">
+                    <div class="class-card">Cape Periwinkle</div>
+                    <div class="class-card">Rose</div>
+                    <div class="class-card">Jasmine</div>
+                    <div class="class-card">Oleander</div>
+                    <div class="class-card">Hibiscus</div>
+                    <div class="class-card">Bougainvillea</div>
+                    <div class="class-card">Marigold</div>
+                    
+                </div>
+            </div>
+        </section>
+        <!-- END OF NEW SECTION -->
+
+        <section id="model-details" class="info-section">
+            <div class="container">
+                <h2>Technical Details</h2>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <h3>Algorithm</h3>
+                        <p><strong>Random Forest Classifier:</strong> An ensemble learning method that constructs multiple decision trees during training for improved accuracy and control over-fitting.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Feature Extraction</h3>
+                        <p>Includes color statistics (mean, std dev in RGB/HSV), texture analysis (GLCM properties like contrast, energy), and shape metrics (aspect ratio, circularity, Hu Moments).</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Segmentation</h3>
+                        <p>A tiered approach first attempts segmentation by color, then uses GrabCut for more complex cases, and finally falls back to the full image if segmentation fails.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to-use" class="info-section-alt">
+            <div class="container">
+                <h2>How to Use</h2>
+                <p>
+                    Navigate to the <strong><a href="predict.html">Predict</a></strong> page to upload a photo of a leaf and receive a classification and confidence score from the model. It's fast, simple, and intuitive.
+                </p>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Leaf Classifier Project</p>
+        <p>&copy; 2025 FloraIntel Project</p>
     </footer>
 </body>
-    <!-- Force refresh for GitHub Pages -->
 </html>
