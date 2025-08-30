@@ -18,7 +18,7 @@ CORS(app, resources={r"/predict": {"origins": "https://flower-leaf-predictor-fro
 # --- Configuration ---
 MODEL_FILE = 'rf (1).pkl'
 SCALER_FILE = 'scaler (1).pkl'
-CONFIDENCE_THRESHOLD = 30.0
+CONFIDENCE_THRESHOLD = 25.0
 
 # --- CRITICAL: Feature Extraction Functions (MUST BE IDENTICAL TO TRAINING) ---
 # NOTE: These complex feature extraction functions remain unchanged as they are essential for the model.
